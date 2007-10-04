@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Maintainer: Pat Double <double@i2rd.com>
+Implementation-Description: Password strength checking library
+Implementation-Title: solinger-cracklib
+Implementation-Version: 0.5.0
+Implementation-Vendor: Justin F. Chapweske
+Implementation-Vendor-URL: http://sourceforge.net/projects/solinger
+Implementation-URI: module:/thirdparty/lib/java/solinger-cracklib
+Java-Source-Compatibility: 5
