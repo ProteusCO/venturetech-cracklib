@@ -361,7 +361,6 @@ public class CrackLib
             {
                 File f = File.createTempFile("cracklib", ext);
                 files[filesIndex++] = f;
-                f.deleteOnExit(); // we expect to be used in a singleton, so this should not cause a problem
                 FileOutputStream fos = new FileOutputStream(f);
                 ReadableByteChannel cin = Channels.newChannel(getClass().getResourceAsStream(wordlist+ext));
                 fos.getChannel().transferFrom(cin, 0, Long.MAX_VALUE);
@@ -369,6 +368,8 @@ public class CrackLib
                 fos.close();
             }
             _packer = new Packer(files[0].getCanonicalPath(), files[1].getCanonicalPath(), files[2].getCanonicalPath(), "r");
+            for(File f : files)
+                f.delete(); // if the OS is smart it'll keep the file open for us but remove when the process ends
         }
     }
     
