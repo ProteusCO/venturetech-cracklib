@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Maintainer: Pat Double <double@i2rd.com>
+Maintainer: Greg Dick <gdick@i2rd.com>
 Implementation-Description: Password strength checking library
 Implementation-Title: solinger-cracklib
 Implementation-Version: 0.5.1
