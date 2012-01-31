@@ -1,6 +1,10 @@
 ChangeLog for solinger-cracklib
 Copyright 2007 Interactive Information R&D (http://www.i2rd.com)
 
+
+  31 Jan 2011; Ken Logan <ken@i2rd.com> : CrackLib.java
+  Generate a nicer IOException message when failing to initialize due to java.io.tmpdir misconfiguration.
+  
 *solinger-cracklib-0.5.1 (29 Oct 2007)
 
   29 Oct 2007; Pat Double <double@i2rd.com> : CrackLib.java

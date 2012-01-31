@@ -359,7 +359,14 @@ public class CrackLib
             int filesIndex = 0;
             for(String ext : new String[] { ".pwd", ".pwi", ".hwm" })
             {
+                File tmpDir = new File(System.getProperty("java.io.tmpdir"));
+                if(!(tmpDir.isDirectory() && tmpDir.canWrite()))
+                {
+                    throw new IOException("Cannot write to temp directory which is specified by java.io.tmpdir as " + System.getProperty("java.io.tmpdir") +
+                            ". This is commonly specified on the command line using -Djava.io.tmpdir, please check your configuration. The directory should exist if running a simple standalone Java application.");
+                }
                 File f = File.createTempFile("cracklib", ext);
+
                 files[filesIndex++] = f;
                 FileOutputStream fos = new FileOutputStream(f);
                 ReadableByteChannel cin = Channels.newChannel(getClass().getResourceAsStream(wordlist+ext));
