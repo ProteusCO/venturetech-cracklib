@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Maintainer: Greg Dick <gdick@i2rd.com>
 Implementation-Description: Password strength checking library
 Implementation-Title: solinger-cracklib
-Implementation-Version: 0.5.1
+Implementation-Version: 0.5.2
 Implementation-Vendor: Justin F. Chapweske
 Implementation-Vendor-URL: http://sourceforge.net/projects/solinger
 Implementation-URI: module:/thirdparty/lib/java/solinger-cracklib
