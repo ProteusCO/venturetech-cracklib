@@ -1,0 +1,12 @@
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+buildDir = 'gradle-build'
+version = '0.5.2'
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Patched Solinger version of Cracklib', 'Implementation-Version': version
+    }
+}
