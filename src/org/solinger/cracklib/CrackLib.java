@@ -10,6 +10,21 @@ import java.nio.channels.ReadableByteChannel;
 import java.util.EnumSet;
 import java.util.Set;
 
+/*
+
+ *solinger-cracklib-0.5.2 (06 Mar 2012)
+
+  31 Jan 2011; Ken Logan <ken@i2rd.com> : CrackLib.java
+  Generate a nicer IOException message when failing to initialize due to java.io.tmpdir misconfiguration.
+  
+*solinger-cracklib-0.5.1 (29 Oct 2007)
+
+  29 Oct 2007; Pat Double <double@i2rd.com> : CrackLib.java
+  Remove temporary files after opening to keep temporary directory
+  from filling up.
+
+ */
+
 /**
  * A library to check passwords with emphasis on reverse engineering to a
  * dictionary word.
