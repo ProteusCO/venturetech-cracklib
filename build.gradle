@@ -3,7 +3,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 
 buildDir = 'gradle-build'
-version = '0.5.2'
+version = '0.5.3'
 
 jar {
     manifest {

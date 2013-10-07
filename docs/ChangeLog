@@ -1,5 +1,10 @@
-ChangeLog for solinger-cracklib
-Copyright 2007 Interactive Information R&D (http://www.i2rd.com)
+ChangeLog for venturetech-cracklib
+Copyright 20013 Interactive Information R&D (http://www.i2rd.com)
+
+*venturetech-cracklib-0.5.3 (07 Oct 2013)
+
+  07 Oct 2013; Russ Tennant <russ@i2rd.com> :
+  Updated project layout for building with gradle. 
 
 *solinger-cracklib-0.5.2 (06 Mar 2012)
 
