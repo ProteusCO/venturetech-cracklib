@@ -1,12 +1,66 @@
 
+buildscript {
+    repositories {
+        maven {
+            url repoReleaseURL
+            credentials {
+                username "${repo_venturetech_username}"
+                password "${repo_venturetech_password ?: ''}"
+            }
+            authentication {
+                basic(BasicAuthentication)
+            }
+        }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:latest.release'
+    }
+}
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 
-buildDir = 'gradle-build'
-version = '0.5.3'
+apply plugin: 'maven-publish'
+apply plugin: "com.jfrog.artifactory"
+
+apply from: 'gradle/publishing.gradle'
+
+version = app_version
+description = "${app_description}"
+buildDir = 'build/gradle'
+sourceCompatibility = 8
+targetCompatibility = 8
+group = app_group
 
 jar {
     manifest {
         attributes 'Implementation-Title': 'Patched Solinger version of Cracklib', 'Implementation-Version': version
+    }
+}
+
+repositories {
+    // mavenLocal()
+    maven {
+        url repoReleaseURL
+        credentials {
+            username repo_venturetech_username
+            password repo_venturetech_password
+        }
+        authentication {
+            basic(BasicAuthentication)
+        }
+    }
+    maven {
+        url repoSnapshotURL
+        credentials {
+            username repo_venturetech_username
+            password repo_venturetech_password
+        }
+        authentication {
+            basic(BasicAuthentication)
+        }
     }
 }
