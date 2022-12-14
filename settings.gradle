@@ -1,0 +1,8 @@
+
+settings.rootProject.name = "${app_name}"
+
+settings.gradle.projectsLoaded( {
+    settings.gradle.rootProject.ext.repoReleaseURL = "${repo_venture_tech_url}/release"
+    settings.gradle.rootProject.ext.repoSnapshotURL = "${repo_venture_tech_url}/snapshot"
+})
+

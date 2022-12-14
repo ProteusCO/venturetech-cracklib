@@ -1,0 +1,41 @@
+
+publishing {
+    publications {
+
+        mavenPub(MavenPublication) {
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionOf('runtimeClasspath')
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+            }
+            from components.java
+        }
+    }
+}
+
+artifactory {
+    contextUrl = publish_venture_tech_url
+
+    publish {
+        repository {
+            repoKey =  app_version.contains("SNAPSHOT") ? publish_venture_tech_snapshot_key : publish_venture_tech_release_key
+            username = publish_venturetech_username
+            password = publish_venturetech_password
+        }
+        defaults {
+            publications('mavenPub')
+        }
+    }
+    resolve {
+        repository {
+            repoKey = 'release'
+            username = repo_venturetech_username
+            password = repo_venturetech_password
+        }
+    }
+
+    clientConfig.timeout = 600
+}
