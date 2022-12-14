@@ -348,51 +348,36 @@ public class CrackLib
      */
     public CrackLib() throws IOException
     {
-        this("words.pack");
-    }
-    
-    /**
-     * Create a new instance.
-     * @param wordlist the location of the word list, will try the file system and class path.
-     * @throws IOException if the word list cannot be loaded.
-     */
-    public CrackLib(String wordlist) throws IOException
-    {
-        try
+        String wordListPackageNameOverride = System.getProperty("cracklib.package.override", "/org/solinger/cracklib");
+        String wordlist = wordListPackageNameOverride + "/words.pack";
+        InputStream is = getClass().getResourceAsStream(wordlist+".pwd");
+        if (is == null)
+            throw new FileNotFoundException("Cannot find " + wordlist + ".pwd");
+        is.close();
+        // copy to temporary files
+        File[] files = new File[3];
+        int filesIndex = 0;
+        for(String ext : new String[] { ".pwd", ".pwi", ".hwm" })
         {
-            _packer = new Packer(wordlist, "r");
-        }
-        catch (FileNotFoundException fnf)
-        {
-            // file not found, check the classpath
-            InputStream is = getClass().getResourceAsStream(wordlist+".pwd");
-            if (is == null)
-                throw fnf;
-            is.close();
-            // copy to temporary files
-            File[] files = new File[3];
-            int filesIndex = 0;
-            for(String ext : new String[] { ".pwd", ".pwi", ".hwm" })
+            File tmpDir = new File(System.getProperty("java.io.tmpdir"));
+            if(!(tmpDir.isDirectory() && tmpDir.canWrite()))
             {
-                File tmpDir = new File(System.getProperty("java.io.tmpdir"));
-                if(!(tmpDir.isDirectory() && tmpDir.canWrite()))
-                {
-                    throw new IOException("Cannot write to temp directory which is specified by java.io.tmpdir as " + System.getProperty("java.io.tmpdir") +
-                            ". This is commonly specified on the command line using -Djava.io.tmpdir, please check your configuration. The directory should exist if running a simple standalone Java application.");
-                }
-                File f = File.createTempFile("cracklib", ext);
-
-                files[filesIndex++] = f;
-                FileOutputStream fos = new FileOutputStream(f);
-                ReadableByteChannel cin = Channels.newChannel(getClass().getResourceAsStream(wordlist+ext));
-                fos.getChannel().transferFrom(cin, 0, Long.MAX_VALUE);
-                cin.close();
-                fos.close();
+                throw new IOException("Cannot write to temp directory which is specified by java.io.tmpdir as " + System.getProperty("java.io.tmpdir") +
+                    ". This is commonly specified on the command line using -Djava.io.tmpdir, please check your configuration. The directory should exist if running a simple standalone Java application.");
             }
-            _packer = new Packer(files[0].getCanonicalPath(), files[1].getCanonicalPath(), files[2].getCanonicalPath(), "r");
-            for(File f : files)
-                f.delete(); // if the OS is smart it'll keep the file open for us but remove when the process ends
+            File f = File.createTempFile("cracklib", ext);
+
+            files[filesIndex++] = f;
+            FileOutputStream fos = new FileOutputStream(f);
+            ReadableByteChannel cin = Channels.newChannel(getClass().getResourceAsStream(wordlist+ext));
+            fos.getChannel().transferFrom(cin, 0, Long.MAX_VALUE);
+            cin.close();
+            fos.close();
         }
+        _packer = new Packer(files[0].getCanonicalPath(), files[1].getCanonicalPath(), files[2].getCanonicalPath(), "r");
+        for(File f : files)
+            f.delete(); // if the OS is smart it'll keep the file open for us but remove when the process ends
+
     }
     
     /**
