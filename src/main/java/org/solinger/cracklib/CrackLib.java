@@ -398,6 +398,6 @@ public class CrackLib
      */
     public Set<ErrorCode> check(String password) throws IOException
     {
-        return check(_packer, password);
+        return check(_packer, password.toLowerCase());
     }
 }
